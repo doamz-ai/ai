@@ -10,6 +10,8 @@
       "VERSION.md",
       "INSTALL.md",
       "REMOTE_INSTALL.md",
+      "AI_COLLABORATION_PROTOCOL.md",
+      "USER_SCENARIOS_PLAYBOOK.md",
       "MANIFEST.md",
       "SELF_CHECK.md",
       "CHANGELOG.md",
@@ -62,10 +64,14 @@
     "prompts": [
       "prompts/install-from-github.md",
       "prompts/initialize-project.md",
+      "prompts/web-gpt-cold-start.md",
       "prompts/raw-idea.md",
       "prompts/compile-exec-prompt.md",
       "prompts/review-diff.md",
-      "prompts/ship-record.md"
+      "prompts/ship-record.md",
+      "prompts/web-gpt-write-ai-folder.md",
+      "prompts/ide-review-ai-task.md",
+      "prompts/ide-progress-report-to-ai-folder.md"
     ],
     "scripts": [
       "scripts/validate-structure.py"
@@ -83,6 +89,8 @@
     "VERSION.md",
     "INSTALL.md",
     "REMOTE_INSTALL.md",
+    "AI_COLLABORATION_PROTOCOL.md",
+    "USER_SCENARIOS_PLAYBOOK.md",
     "MANIFEST.md",
     "SELF_CHECK.md",
     "CHANGELOG.md",
@@ -123,10 +131,14 @@
     "references/ANTI_OVERENGINEERING_RULES.md",
     "prompts/install-from-github.md",
     "prompts/initialize-project.md",
+    "prompts/web-gpt-cold-start.md",
     "prompts/raw-idea.md",
     "prompts/compile-exec-prompt.md",
     "prompts/review-diff.md",
     "prompts/ship-record.md",
+    "prompts/web-gpt-write-ai-folder.md",
+    "prompts/ide-review-ai-task.md",
+    "prompts/ide-progress-report-to-ai-folder.md",
     "scripts/validate-structure.py",
     "tasks/.gitkeep",
     "decisions/.gitkeep",
