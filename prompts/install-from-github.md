@@ -2,21 +2,33 @@
 
 用途：在任意当前项目中，让 IDE 智能体从 GitHub 模板仓库 `doamz-ai/ai` 远程安装 AI Engineering Delivery OS 到当前项目本地 `.ai/` 目录。
 
+开源仓库 URL：
+
+```text
+https://github.com/doamz-ai/ai
+```
+
 ---
 
 ```markdown
-请从 GitHub 仓库 `doamz-ai/ai` 安装 AI Engineering Delivery OS 到当前项目。
+请从 GitHub 开源仓库安装 AI Engineering Delivery OS 到当前项目。
+
+仓库名称：`doamz-ai/ai`
+仓库 URL：`https://github.com/doamz-ai/ai`
+默认分支：`master`
 
 请严格按以下要求执行。
 
 ## 1. Source
 
 模板仓库：`doamz-ai/ai`
+模板仓库 URL：`https://github.com/doamz-ai/ai`
 默认分支：`master`
 
 请先读取模板仓库中的：
 
 - `README.md`
+- `THREE_MINUTE_QUICK_START.md`
 - `START_HERE.md`
 - `REMOTE_INSTALL.md`
 - `MANIFEST.md`
@@ -33,7 +45,7 @@
 如果当前项目不存在 `.ai/`：
 
 1. 创建 `.ai/` 目录。
-2. 将 `doamz-ai/ai` 仓库内容复制到 `.ai/`。
+2. 从 `https://github.com/doamz-ai/ai` 读取并复制模板内容到 `.ai/`。
 3. 不要修改当前项目业务代码。
 4. 安装完成后读取 `.ai/START_HERE.md`。
 5. 扫描当前项目代码，生成或补全：
@@ -54,6 +66,7 @@
 可以从模板仓库更新：
 
 - `README.md`
+- `THREE_MINUTE_QUICK_START.md`
 - `START_HERE.md`
 - `VERSION.md`
 - `INSTALL.md`
@@ -101,6 +114,7 @@ python .ai/scripts/validate-structure.py .ai
 ## Source
 
 - Template repo: doamz-ai/ai
+- Template URL: https://github.com/doamz-ai/ai
 - Branch / ref: master / [commit if known]
 
 ## Target
