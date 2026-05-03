@@ -1,9 +1,62 @@
 # AI Engineering Delivery OS
 
 > 中文名：AI 工程交付操作系统  
-> 定位：一套可复制到任意代码仓库的 AI 多智能体工程协作系统。
+> 定位：一套可安装到任意代码仓库的 AI 多智能体工程协作系统。
 
 AI Engineering Delivery OS 不是一段单独的 Prompt，也不是某个具体项目的开发文档。它是一套可以安装到任意 GitHub 项目中的 AI 协作运行环境，用来把 AI 编程从“聊天式写代码”升级为“上下文驱动、任务切片、增量实现、测试反馈、质量审计、长期沉淀”的工程交付流程。
+
+---
+
+## 0. 非专业用户快速开始
+
+如果你不懂 Git、脚本或工程目录，也可以这样用。
+
+### 推荐方式：让 IDE 智能体自动安装
+
+在你的任意代码项目中，打开支持 GitHub 和本地文件操作的 AI IDE，然后复制下面这段话给 IDE 智能体：
+
+```markdown
+请从 GitHub 仓库 `doamz-ai/ai` 安装 AI Engineering Delivery OS 到当前项目。
+
+请先读取该仓库中的 `prompts/install-from-github.md`，然后严格按照其中规则执行。
+
+目标：
+1. 在当前项目根目录创建 `.ai/` 文件夹。
+2. 从 `doamz-ai/ai` 复制模板内容到 `.ai/`。
+3. 不要修改当前项目业务代码。
+4. 安装后扫描当前项目，初始化 `.ai/project/` 下的项目上下文。
+5. 输出安装报告。
+```
+
+安装完成后，当前项目就拥有自己的专属 `.ai/` 协作层。
+
+### 日常使用方式
+
+1. 你在网页 GPT 或 IDE 里提出模糊想法。
+2. AI 把想法整理到 `.ai/tasks/`。
+3. IDE 模型读取 `.ai/tasks/` 后，先审查方案是否符合真实代码。
+4. IDE 模型确认后再改业务代码。
+5. 改完后用 `.ai/skills/review-quality-gate/` 审计。
+6. 通过后把长期经验沉淀到 `.ai/project/AI_PROJECT_MEMORY.md`。
+
+### 最重要的安全边界
+
+如果你用网页版 GPT 连接目标项目 GitHub，它默认只应该写 `.ai/` 文件夹，用于传递想法、PRD、计划、任务包和审计报告。
+
+```text
+网页 GPT：只写 .ai/，不碰业务代码。
+IDE 模型：读取 .ai/，基于真实代码挑战方案，再决定是否执行。
+GitHub：作为网页 GPT 与 IDE 模型之间的信息传递通道。
+```
+
+详细规则见：
+
+```text
+REMOTE_INSTALL.md
+AI_COLLABORATION_PROTOCOL.md
+prompts/install-from-github.md
+prompts/web-gpt-write-ai-folder.md
+```
 
 ---
 
@@ -73,6 +126,7 @@ AI Engineering Delivery OS 不是：
 - 不是让 AI 无脑写代码的万能咒语。
 - 不是替代人类判断的自动开发流水线。
 - 不是要求每个小改动都写长文档的官僚系统。
+- 不是让弱模型强迫强模型执行错误规划。
 
 它是：
 
@@ -93,89 +147,78 @@ AI Engineering Delivery OS 不是：
 
 ---
 
-## 4. 推荐安装结构
+## 4. 协作治理原则
 
-将本系统复制到任意项目根目录下的 `.ai/` 文件夹中：
+IDE 里的强模型不是无脑执行者，而是带有否决权的工程合作者。
+
+任何网页 GPT、人类或其他模型写入 `.ai/` 的方案，都默认是：
+
+```text
+Proposal, not command.
+```
+
+IDE 模型在执行前必须基于真实仓库做挑战性审查：
+
+```text
+ACCEPT / ACCEPT_WITH_CHANGES / NEEDS_CLARIFICATION / REJECT
+```
+
+推荐协作方式：
+
+```text
+网页 GPT 讨论并生成方案
+→ 写入目标项目 .ai/tasks/...
+→ 推送到 GitHub
+→ IDE pull 最新内容
+→ IDE 审查 .ai/tasks/...
+→ IDE 修正或执行
+→ IDE 推送代码或 PR
+→ 网页 GPT 可再次审计 diff
+```
+
+详细见：
+
+```text
+AI_COLLABORATION_PROTOCOL.md
+```
+
+---
+
+## 5. 推荐安装结构
+
+将本系统安装到任意项目根目录下的 `.ai/` 文件夹中：
 
 ```text
 .ai/
 ├── README.md
 ├── START_HERE.md
 ├── VERSION.md
+├── INSTALL.md
+├── REMOTE_INSTALL.md
+├── AI_COLLABORATION_PROTOCOL.md
+├── MANIFEST.md
+├── SELF_CHECK.md
+├── CHANGELOG.md
+├── manifest.json
 │
 ├── system/
-│   ├── AI_MASTER_PROMPT.md
-│   ├── AI_AGENT_RULES.md
-│   ├── AI_OPERATING_MODES.md
-│   └── AI_DELIVERY_WORKFLOW.md
-│
 ├── project/
-│   ├── AI_REPO_CONTEXT.md
-│   ├── AI_DOMAIN_CONTEXT.md
-│   ├── AI_CONTEXT_MAP.md
-│   └── AI_PROJECT_MEMORY.md
-│
 ├── skills/
-│   ├── idea-to-clarity/
-│   │   └── SKILL.md
-│   ├── grill-with-repo/
-│   │   └── SKILL.md
-│   ├── spec-before-code/
-│   │   └── SKILL.md
-│   ├── plan-to-slices/
-│   │   └── SKILL.md
-│   ├── execution-prompt-compiler/
-│   │   └── SKILL.md
-│   ├── incremental-build/
-│   │   └── SKILL.md
-│   ├── tdd-feedback-loop/
-│   │   └── SKILL.md
-│   ├── diagnose-bug/
-│   │   └── SKILL.md
-│   ├── review-quality-gate/
-│   │   └── SKILL.md
-│   ├── architecture-deepening/
-│   │   └── SKILL.md
-│   └── ship-and-record/
-│       └── SKILL.md
-│
 ├── templates/
-│   ├── TASK_PACKAGE_TEMPLATE.md
-│   ├── PRD_TEMPLATE.md
-│   ├── RFC_TEMPLATE.md
-│   ├── ADR_TEMPLATE.md
-│   ├── ISSUE_SLICE_TEMPLATE.md
-│   ├── REVIEW_REPORT_TEMPLATE.md
-│   ├── FEEDBACK_LOOP_TEMPLATE.md
-│   └── SHIP_REPORT_TEMPLATE.md
-│
 ├── references/
-│   ├── SECURITY_CHECKLIST.md
-│   ├── PERFORMANCE_CHECKLIST.md
-│   ├── TESTING_CHECKLIST.md
-│   ├── API_INTERFACE_CHECKLIST.md
-│   ├── DATABASE_MIGRATION_CHECKLIST.md
-│   ├── FRONTEND_UX_CHECKLIST.md
-│   └── ANTI_OVERENGINEERING_RULES.md
-│
+├── prompts/
+├── scripts/
 ├── tasks/
-│   └── .gitkeep
-│
 ├── decisions/
-│   └── .gitkeep
-│
 ├── reviews/
-│   └── .gitkeep
-│
 └── changelog/
-    └── .gitkeep
 ```
 
 ---
 
-## 5. 分层设计
+## 6. 分层设计
 
-### 5.1 `system/`：通用系统内核
+### 6.1 `system/`：通用系统内核
 
 `system/` 定义所有项目通用的 AI 协作规则。
 
@@ -192,7 +235,7 @@ AI Engineering Delivery OS 不是：
 
 ---
 
-### 5.2 `project/`：项目本地上下文
+### 6.2 `project/`：项目本地上下文
 
 `project/` 定义当前项目独有的事实和记忆。
 
@@ -210,19 +253,9 @@ AI Engineering Delivery OS 不是：
 
 ---
 
-### 5.3 `skills/`：可触发的工作流能力
+### 6.3 `skills/`：可触发的工作流能力
 
 `skills/` 不是普通说明文，而是 AI 的工作流能力模块。
-
-每个 skill 都应包含：
-
-- 触发条件。
-- 输入要求。
-- 执行步骤。
-- 禁止事项。
-- 输出格式。
-- 退出条件。
-- 质量标准。
 
 例如：
 
@@ -239,13 +272,13 @@ AI Engineering Delivery OS 不是：
 
 ---
 
-### 5.4 `templates/`：标准交付物模板
+### 6.4 `templates/`：标准交付物模板
 
 `templates/` 用来统一 AI 的输出格式，避免每次任务包、PRD、Review Report、ADR 结构不一致。
 
 ---
 
-### 5.5 `references/`：质量检查清单
+### 6.5 `references/`：质量检查清单
 
 `references/` 是质量门和防呆系统。
 
@@ -261,7 +294,23 @@ AI Engineering Delivery OS 不是：
 
 ---
 
-### 5.6 `tasks/`、`decisions/`、`reviews/`、`changelog/`
+### 6.6 `prompts/`：可复制启动 Prompt
+
+`prompts/` 供普通用户直接复制给 IDE 或网页 GPT。
+
+最常用的是：
+
+```text
+prompts/install-from-github.md
+prompts/raw-idea.md
+prompts/compile-exec-prompt.md
+prompts/review-diff.md
+prompts/web-gpt-write-ai-folder.md
+```
+
+---
+
+### 6.7 `tasks/`、`decisions/`、`reviews/`、`changelog/`
 
 这些目录用于记录项目实际运行过程：
 
@@ -272,11 +321,11 @@ AI Engineering Delivery OS 不是：
 
 ---
 
-## 6. 推荐角色分工
+## 7. 推荐角色分工
 
 本系统不要求真的同时启动多个 AI，但建议按角色理解协作职责。
 
-### 6.1 军师模型
+### 7.1 军师模型
 
 负责：
 
@@ -288,57 +337,29 @@ AI Engineering Delivery OS 不是：
 - 生成任务包。
 - 审计执行结果。
 
-### 6.2 编程智能体
+### 7.2 编程智能体
 
 负责：
 
 - 阅读任务包。
-- 定位代码。
+- 结合真实代码挑战方案。
+- 必要时反驳或修正计划。
 - 增量实现。
 - 运行测试。
 - 输出修改摘要。
 
-### 6.3 测试智能体
+### 7.3 审计智能体
 
 负责：
 
-- 建立反馈循环。
-- 设计测试路径。
-- 验证正常路径、异常路径、权限路径、回归路径。
-
-### 6.4 安全审计智能体
-
-负责：
-
-- 权限边界。
-- 数据泄露。
-- 输入验证。
-- 密钥安全。
-- 文件访问风险。
-
-### 6.5 架构审计智能体
-
-负责：
-
-- 模块边界。
-- 技术债。
-- 过度抽象。
-- 重复实现。
-- 长期维护成本。
-
-### 6.6 发布沉淀智能体
-
-负责：
-
-- 交付报告。
-- ADR。
-- 项目记忆更新。
-- 术语表更新。
-- 技术债登记。
+- 检查是否完成原目标。
+- 检查是否有无关改动。
+- 检查安全、权限、数据、性能、测试风险。
+- 输出 PASS / NEEDS_FIX / REJECT。
 
 ---
 
-## 7. 标准生命周期
+## 8. 标准生命周期
 
 每个重要任务建议遵循以下生命周期：
 
@@ -347,137 +368,102 @@ AI Engineering Delivery OS 不是：
 1. Define：澄清想法，定义真实问题
 2. Spec：形成规格，明确目标和非目标
 3. Plan：拆成任务切片，区分 HITL / AFK
-4. Build：增量实现，每个切片保持可运行
-5. Verify：测试反馈，提供 pass/fail 证据
-6. Review：质量门审计，输出 PASS / NEEDS_FIX / REJECT
-7. Ship：交付报告，沉淀项目记忆
+4. Prompt：编译给编程智能体的执行 Prompt
+5. Build：增量实现，每个切片保持可运行
+6. Verify：测试反馈，提供 pass/fail 证据
+7. Review：质量门审计，输出 PASS / NEEDS_FIX / REJECT
+8. Ship：交付报告，沉淀项目记忆
+9. Memory：更新长期项目上下文
 ```
 
 ---
 
-## 8. 关键原则
+## 9. 关键原则
 
-### 8.1 Process, not prose
+### 9.1 Process, not prose
 
 文档不是为了好看，而是为了驱动流程。每个文件都要能帮助 AI 做出更稳定的工程行为。
 
-### 8.2 Context before code
+### 9.2 Context before code
 
 在没有理解项目上下文之前，不要直接改代码。
 
-### 8.3 Clarify before build
+### 9.3 Proposal, not command
+
+`.ai/` 中的计划默认是提案，不是命令。IDE 模型必须结合真实代码审查。
+
+### 9.4 Clarify before build
 
 需求不清时，先澄清、追问、查代码，而不是直接实现。
 
-### 8.4 Not Doing is part of scope
+### 9.5 Not Doing is part of scope
 
 每个任务都要明确“不做什么”。没有 Not Doing，AI 容易过度实现。
 
-### 8.5 Vertical slices over big rewrites
+### 9.6 Vertical slices over big rewrites
 
 优先端到端薄切片，而不是一次性大重构。
 
-### 8.6 Feedback loop first
+### 9.7 Feedback loop first
 
 调 bug 和做复杂改动时，先建立可重复验证信号。
 
-### 8.7 Tests as proof
-
-测试不是装饰，而是证明。
-
-### 8.8 Review before trust
+### 9.8 Review before trust
 
 编程智能体执行完以后，不要直接信任结果。必须审计 diff、范围、风险和测试证据。
 
-### 8.9 Memory after ship
+### 9.9 Memory after ship
 
 重要任务完成后，必须沉淀项目记忆。
 
 ---
 
-## 9. 常见使用场景
+## 10. 常见使用场景
 
-### 9.1 新项目安装
+### 10.1 新项目安装
 
-把 `.ai/` 文件夹复制到项目根目录，然后让 AI 读取 `START_HERE.md` 初始化项目上下文。
+推荐让 IDE 智能体读取：
 
-### 9.2 模糊想法收敛
+```text
+prompts/install-from-github.md
+```
+
+从 GitHub 模板仓库安装到当前项目 `.ai/`。
+
+### 10.2 模糊想法收敛
 
 用户提出一个不成熟想法，军师模型通过 `idea-to-clarity` 和 `grill-with-repo` 收敛成任务包。
 
-### 9.3 生成给编程智能体的 Prompt
+### 10.3 网页 GPT 向 IDE 传递想法
+
+网页 GPT 只写目标项目 `.ai/` 目录，不碰业务代码。
+
+推荐读取：
+
+```text
+prompts/web-gpt-write-ai-folder.md
+```
+
+### 10.4 生成给编程智能体的 Prompt
 
 军师模型通过 `execution-prompt-compiler` 输出高质量执行 Prompt。
 
-### 9.4 编程智能体执行
+### 10.5 编程智能体执行
 
-编程智能体读取 `AI_AGENT_RULES.md` 和任务包后进行增量实现。
+编程智能体读取 `AI_AGENT_RULES.md` 和任务包后，先审查方案，再增量实现。
 
-### 9.5 执行后审计
+### 10.6 执行后审计
 
 军师模型通过 `review-quality-gate` 审计修改结果。
 
-### 9.6 交付沉淀
+### 10.7 交付沉淀
 
 任务通过后，更新 `AI_PROJECT_MEMORY.md`、`AI_DOMAIN_CONTEXT.md`、`decisions/` 或 `changelog/`。
 
 ---
 
-## 10. 最小可用版本
+## 11. 当前状态
 
-如果不想一次性使用完整系统，可以先使用最小版本：
-
-```text
-.ai/
-├── README.md
-├── START_HERE.md
-├── VERSION.md
-├── system/
-│   ├── AI_MASTER_PROMPT.md
-│   └── AI_AGENT_RULES.md
-├── project/
-│   ├── AI_REPO_CONTEXT.md
-│   ├── AI_DOMAIN_CONTEXT.md
-│   └── AI_PROJECT_MEMORY.md
-├── templates/
-│   ├── TASK_PACKAGE_TEMPLATE.md
-│   └── REVIEW_REPORT_TEMPLATE.md
-└── skills/
-    ├── idea-to-clarity/
-    │   └── SKILL.md
-    ├── execution-prompt-compiler/
-    │   └── SKILL.md
-    └── review-quality-gate/
-        └── SKILL.md
-```
-
----
-
-## 11. 版本策略
-
-建议使用语义化版本：
-
-```text
-MAJOR.MINOR.PATCH
-```
-
-例如：
-
-```text
-v0.1.0
-```
-
-含义：
-
-- `MAJOR`：系统结构或核心协议有破坏性变化。
-- `MINOR`：新增 skills、templates、references。
-- `PATCH`：修正文档、优化措辞、补充示例。
-
----
-
-## 12. 当前状态
-
-当前版本：`v0.1.0`  
-当前状态：Draft / MVP  
-当前目标：先建立可复制到任意项目的 AI 工程交付基础协议。
-
+当前版本：`v0.1.1-draft`  
+当前状态：Ready for Pilot  
+当前目标：支持 IDE 自动远程安装，并支持网页 GPT 与 IDE 通过 GitHub `.ai/` 文件夹协作。
