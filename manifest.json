@@ -9,8 +9,11 @@
       "START_HERE.md",
       "VERSION.md",
       "INSTALL.md",
+      "REMOTE_INSTALL.md",
       "MANIFEST.md",
-      "SELF_CHECK.md"
+      "SELF_CHECK.md",
+      "CHANGELOG.md",
+      "manifest.json"
     ],
     "system": [
       "system/AI_MASTER_PROMPT.md",
@@ -57,11 +60,15 @@
       "references/ANTI_OVERENGINEERING_RULES.md"
     ],
     "prompts": [
+      "prompts/install-from-github.md",
       "prompts/initialize-project.md",
       "prompts/raw-idea.md",
       "prompts/compile-exec-prompt.md",
       "prompts/review-diff.md",
       "prompts/ship-record.md"
+    ],
+    "scripts": [
+      "scripts/validate-structure.py"
     ],
     "runtime_dirs": [
       "tasks/.gitkeep",
@@ -75,8 +82,11 @@
     "START_HERE.md",
     "VERSION.md",
     "INSTALL.md",
+    "REMOTE_INSTALL.md",
     "MANIFEST.md",
     "SELF_CHECK.md",
+    "CHANGELOG.md",
+    "manifest.json",
     "system/AI_MASTER_PROMPT.md",
     "system/AI_AGENT_RULES.md",
     "system/AI_OPERATING_MODES.md",
@@ -111,11 +121,13 @@
     "references/DATABASE_MIGRATION_CHECKLIST.md",
     "references/FRONTEND_UX_CHECKLIST.md",
     "references/ANTI_OVERENGINEERING_RULES.md",
+    "prompts/install-from-github.md",
     "prompts/initialize-project.md",
     "prompts/raw-idea.md",
     "prompts/compile-exec-prompt.md",
     "prompts/review-diff.md",
     "prompts/ship-record.md",
+    "scripts/validate-structure.py",
     "tasks/.gitkeep",
     "decisions/.gitkeep",
     "reviews/.gitkeep",
