@@ -1,6 +1,6 @@
 # MANIFEST
 
-本文件是 AI Engineering Delivery OS v0.1.0 的完整文件清单与用途说明。
+本文件是 AI Engineering Delivery OS v0.1.1-draft 的完整文件清单与用途说明。
 
 它用于帮助人类和 AI 快速理解：
 
@@ -9,6 +9,7 @@
 - 哪些文件是项目适配层。
 - 哪些文件用于任务过程记录。
 - 不同角色应该优先读取哪些文件。
+- 如何通过 GitHub 远程模板安装到当前项目。
 
 ---
 
@@ -20,8 +21,11 @@
 | `START_HERE.md` | 第一次进入系统时的入口文件，分别指导人类、军师模型、编程智能体、审计智能体如何开始 | 所有角色 |
 | `VERSION.md` | 版本号、版本策略、升级原则 | 人类、维护者 |
 | `INSTALL.md` | 安装说明，说明如何把本系统复制到任意项目的 `.ai/` 目录中 | 人类、维护者 |
+| `REMOTE_INSTALL.md` | 远程模板安装说明，指导 IDE 智能体从 GitHub 模板仓库安装到当前项目 | 人类、IDE 智能体、维护者 |
 | `MANIFEST.md` | 当前文件清单和用途说明 | 人类、AI |
 | `SELF_CHECK.md` | 当前版本自检报告和后续补强项 | 维护者、军师模型 |
+| `CHANGELOG.md` | 版本变更记录 | 人类、维护者 |
+| `manifest.json` | 机器可读文件清单，供脚本校验结构 | IDE 智能体、脚本 |
 
 ---
 
@@ -111,7 +115,30 @@
 
 ---
 
-## 7. Runtime Directories
+## 7. `prompts/` — 可复制启动 Prompt
+
+这些文件供人类直接复制给 IDE 智能体或军师模型。
+
+| File | Purpose | Use When |
+|---|---|---|
+| `prompts/install-from-github.md` | 让 IDE 智能体从 GitHub 模板仓库远程安装到当前项目 `.ai/` | 任意项目首次安装或升级 `.ai/` |
+| `prompts/initialize-project.md` | 初始化项目上下文 | 安装后第一次扫描项目 |
+| `prompts/raw-idea.md` | 模糊想法澄清 | 用户有不成熟想法 |
+| `prompts/compile-exec-prompt.md` | 编译给编程智能体的执行 Prompt | 需求已清晰，准备执行 |
+| `prompts/review-diff.md` | 审计 diff / PR | 编程智能体改完代码后 |
+| `prompts/ship-record.md` | 交付沉淀 | 审计通过后 |
+
+---
+
+## 8. `scripts/` — 工具脚本
+
+| File | Purpose |
+|---|---|
+| `scripts/validate-structure.py` | 根据 `manifest.json` 校验安装目录结构是否完整 |
+
+---
+
+## 9. Runtime Directories
 
 这些目录用于具体项目运行过程中沉淀内容。
 
@@ -124,7 +151,7 @@
 
 ---
 
-## 8. Recommended Reading by Role
+## 10. Recommended Reading by Role
 
 ### Human User
 
@@ -134,7 +161,9 @@
 README.md
 START_HERE.md
 INSTALL.md
+REMOTE_INSTALL.md
 MANIFEST.md
+prompts/install-from-github.md
 ```
 
 ### Strategist / 军师模型
@@ -177,28 +206,31 @@ references/ANTI_OVERENGINEERING_RULES.md
 
 ---
 
-## 9. Current v0.1.0 File Count
+## 11. Current v0.1.1-draft File Count
 
 | Layer | Count |
 |---|---:|
-| Root docs | 6 |
+| Root docs | 9 |
 | system | 4 |
 | project | 4 |
 | skills | 11 |
 | templates | 8 |
 | references | 7 |
+| prompts | 6 |
+| scripts | 1 |
 | runtime placeholder dirs | 4 |
 
-Total documented files/directories: 44 entries.
+Total documented files/directories: 54 entries.
 
 ---
 
-## 10. Final Note
+## 12. Final Note
 
 如果你不知道当前应该读取哪个文件，请从这里开始：
 
 ```text
 START_HERE.md
+REMOTE_INSTALL.md
 MANIFEST.md
 project/AI_CONTEXT_MAP.md
 ```
