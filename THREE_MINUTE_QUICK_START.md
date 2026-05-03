@@ -2,6 +2,12 @@
 
 本文件面向非专业 IT 用户，帮助你在 3 分钟内理解 AI Engineering Delivery OS 怎么用。
 
+开源仓库 URL：
+
+```text
+https://github.com/doamz-ai/ai
+```
+
 你只需要记住一句话：
 
 ```text
@@ -43,7 +49,7 @@ flowchart TD
 ```text
 第 1 步：在 IDE 打开你的项目
         ↓
-第 2 步：让 IDE 从 doamz-ai/ai 安装 .ai/
+第 2 步：让 IDE 从 https://github.com/doamz-ai/ai 安装 .ai/
         ↓
 第 3 步：IDE 扫描项目，生成 project/ 项目上下文
         ↓
@@ -77,13 +83,17 @@ flowchart TD
 ## 3. 第一次安装时，你只需要复制这段给 IDE
 
 ```markdown
-请从 GitHub 仓库 `doamz-ai/ai` 安装 AI Engineering Delivery OS 到当前项目。
+请从 GitHub 开源仓库安装 AI Engineering Delivery OS 到当前项目。
+
+仓库名称：`doamz-ai/ai`
+仓库 URL：`https://github.com/doamz-ai/ai`
+默认分支：`master`
 
 请先读取该仓库中的 `prompts/install-from-github.md`，然后严格按照其中规则执行。
 
 目标：
 1. 在当前项目根目录创建 `.ai/` 文件夹。
-2. 从 `doamz-ai/ai` 复制模板内容到 `.ai/`。
+2. 从 `https://github.com/doamz-ai/ai` 复制模板内容到 `.ai/`。
 3. 不要修改当前项目业务代码。
 4. 安装后扫描当前项目，初始化 `.ai/project/` 下的项目上下文。
 5. 安装并初始化后，只提交并推送 `.ai/` 到当前项目 GitHub。
