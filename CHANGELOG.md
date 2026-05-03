@@ -8,8 +8,14 @@
 
 ### Added
 
+新增远程模板安装模式：
+
+- `REMOTE_INSTALL.md`
+- `prompts/install-from-github.md`
+
 新增可复制 Prompt：
 
+- `prompts/install-from-github.md`
 - `prompts/initialize-project.md`
 - `prompts/raw-idea.md`
 - `prompts/compile-exec-prompt.md`
@@ -28,6 +34,11 @@
 
 - `CHANGELOG.md`
 
+### Changed
+
+- `MANIFEST.md` 已更新为 v0.1.1-draft 文件清单。
+- `manifest.json` 已纳入远程安装相关文件、prompts 和 scripts。
+
 ### Purpose
 
 v0.1.1-draft 的目标是让系统更容易安装、复制、启动和自检。
@@ -35,7 +46,8 @@ v0.1.1-draft 的目标是让系统更容易安装、复制、启动和自检。
 重点从“文档完整”增强为：
 
 ```text
-可复制 Prompt
+远程模板安装
++ 可复制 Prompt
 + 机器可读 manifest
 + 结构校验脚本
 + 版本变更记录
